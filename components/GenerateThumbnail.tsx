@@ -32,7 +32,7 @@ setImagePrompt}:GenerateThumbnailProps) => {
       method: "POST",
       url: "https://open-ai21.p.rapidapi.com/texttoimage2",
       headers: {
-        "x-rapidapi-key": "7d47536f0cmsh9e3a6f0a02d3b9dp14dfadjsn4cbb024939d5",
+        "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_IMAGE_KEY,
         "x-rapidapi-host": "open-ai21.p.rapidapi.com",
         "Content-Type": "application/json",
       },

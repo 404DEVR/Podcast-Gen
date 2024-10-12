@@ -26,7 +26,7 @@ const useGeneratePodcast = ({
        method: "POST",
        url: "https://realistic-text-to-speech.p.rapidapi.com/v3/generate_voice_over_v2",
        headers: {
-         "x-rapidapi-key": "f475346e6fmshb04316f6f3ebf43p142298jsnc48503acc2a1", 
+         "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY,
          "x-rapidapi-host": "realistic-text-to-speech.p.rapidapi.com",
          "Content-Type": "application/json",
        },
