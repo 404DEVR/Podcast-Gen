@@ -8,8 +8,7 @@ I developed a podcast platform that empowers users to create and publish their o
 
 ## Screenshots
 
-[![https://via.placeholder.com/468x300?text=App+Screenshot+Here](https://github.com/404DEVR/PodcastGen/blob/main/public/images/Screenshot%202024-10-10%20204525.png)](https://github.com/404DEVR/Podcast-Gen/blob/main/public/images/Screenshot%202024-10-10%20204525.png)
-
+![https://via.placeholder.com/468x300?text=App+Screenshot+Here](/public/images/Screenshot%202024-10-10%20204525.png)
 
 ## Demo
 
