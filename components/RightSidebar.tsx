@@ -21,15 +21,12 @@ const RightSidebar = () => {
 
   return (
     <div className="fixed flex justify-end right-10 top-5 gap-4 max-md:hidden ">
+      <Button onClick={() => setIsPressed(!isPressed)} className="">
+        Find Podcast creaters
+      </Button>
       <SignedIn>
-        <Button onClick={() => setIsPressed(!isPressed)} className="">
-          More
-        </Button>
         <Button className="right-5 top-5 rounded-lg gap-2">
-          <Link
-            href={`/profile/${user?.id}`}
-            className="flex gap-2"
-          >
+          <Link href={`/profile/${user?.id}`} className="flex gap-2">
             <UserButton />
             <div className="flex w-full items-center justify-between">
               <h1 className="text-16 truncate font-semibold text-white-1">
@@ -38,51 +35,48 @@ const RightSidebar = () => {
             </div>
           </Link>
         </Button>
-        {isPressed && (
-          <section
-            className={`right_sidebar text-white-1 h-[calc(100vh-100px)] top-0 right-48`}
-          >
-            <div>
-              <section>
-                <Header headerTitle=" Fans Like You" />
-                <Carousel fansLikeDetail={topPodcasters!} />
-              </section>
-              <section className="flex flex-col gap-8 pt-6">
-                <Header
-                  headerTitle="Top Podcasters"
-                  headerClassname=""
-                ></Header>
-                <div className="flex flex-col gap-6 mb-4">
-                  {topPodcasters?.slice(0, 4).map((item) => (
-                    <div
-                      key={item._id}
-                      className="flex cursor-pointer justify-between"
-                      onClick={() => router.push(`/profile/${item.clerkId}`)}
-                    >
-                      <figure className="flex items-center gap-2">
-                        <Image
-                          src={item.imageUrl}
-                          alt={item.name}
-                          className="aspect-square rounded-lg"
-                          width={44}
-                          height={44}
-                        />
-                        <h2 className="text-14 font-semibold">{item.name}</h2>
-                      </figure>
-                      <div className="flex items-center">
-                        <p className="text-12 font-normal">
-                          {item.totalPodcasts}{" "}
-                          {item.totalPodcasts === 1 ? "podcast" : "podcasts"}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </section>
-            </div>
-          </section>
-        )}
       </SignedIn>
+      {isPressed && (
+        <section
+          className={`right_sidebar text-white-1 h-[calc(100vh-100px)] top-0 right-48`}
+        >
+          <div>
+            <section>
+              <Header headerTitle=" Fans Like You" />
+              <Carousel fansLikeDetail={topPodcasters!} />
+            </section>
+            <section className="flex flex-col gap-8 pt-6">
+              <Header headerTitle="Top Podcasters" headerClassname=""></Header>
+              <div className="flex flex-col gap-6 mb-4">
+                {topPodcasters?.slice(0, 4).map((item) => (
+                  <div
+                    key={item._id}
+                    className="flex cursor-pointer justify-between"
+                    onClick={() => router.push(`/profile/${item.clerkId}`)}
+                  >
+                    <figure className="flex items-center gap-2">
+                      <Image
+                        src={item.imageUrl}
+                        alt={item.name}
+                        className="aspect-square rounded-lg"
+                        width={44}
+                        height={44}
+                      />
+                      <h2 className="text-14 font-semibold">{item.name}</h2>
+                    </figure>
+                    <div className="flex items-center">
+                      <p className="text-12 font-normal">
+                        {item.totalPodcasts}{" "}
+                        {item.totalPodcasts === 1 ? "podcast" : "podcasts"}
+                      </p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+          </div>
+        </section>
+      )}
     </div>
   );
 }
