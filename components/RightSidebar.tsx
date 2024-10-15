@@ -27,13 +27,29 @@ const RightSidebar = () => {
         <Button onClick={() => setIsPressed(!isPressed)} className="">
           More
         </Button>
-        <Button className="right-5 top-5 rounded-lg gap-2">
+        {/* 
           <UserButton />
           <div className="flex w-full items-center justify-between gap-6">
             <h1 className="text-16 truncate font-semibold text-white-1">
               {user?.firstName}
             </h1>
           </div>
+          <Link href={}>
+            <Image src={} alt="" width={} height={} />
+          </Link>
+        </Button> */}
+        <Button className="right-5 top-5 rounded-lg gap-2">
+          <Link
+            href={`/profile/${user?.id}`}
+            className="flex gap-2"
+          >
+            <UserButton />
+            <div className="flex w-full items-center justify-between">
+              <h1 className="text-16 truncate font-semibold text-white-1">
+                {user?.firstName} {user?.lastName}
+              </h1>
+            </div>
+          </Link>
         </Button>
         {isPressed && (
           <section
