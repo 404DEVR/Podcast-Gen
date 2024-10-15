@@ -38,7 +38,7 @@ const EmblaCarousel = ({
   if(!slides) return <LoaderSpinner/>
   return (
     <section
-      className="flex w-full flex-col gap-4 overflow-hidden "
+      className="flex w-full flex-col gap-4 overflow-hidden mt-2"
       ref={emblaRef}
     >
         <div className="flex">

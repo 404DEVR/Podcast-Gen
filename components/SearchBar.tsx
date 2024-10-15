@@ -19,8 +19,8 @@ const SearchBar = () => {
       }
     }, [router, pathname, debounceValue]);
   return (
-    <div className='relative block '>
-      <Input className='input-class py-6 pl-12 focus-visible:ring-offset-orange-1' onChange={(e)=>setSearch(e.target.value)} value={search} onLoad={()=>setSearch("")}/>
+    <div className='relative'>
+      <Input className='input-class py-6 pl-12 focus-visible:ring-offset-[#4CAF50]' onChange={(e)=>setSearch(e.target.value)} value={search} onLoad={()=>setSearch("")}/>
       <Image src='/icons/search.svg' alt='search' width={20} height={20} className='absolute left-4 top-3.5'/>
     </div>
   )

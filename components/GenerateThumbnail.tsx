@@ -124,7 +124,7 @@ setImagePrompt}:GenerateThumbnailProps) => {
               AI Prompt to generate Thumbnail
             </Label>
             <Textarea
-              className="input-class font-light focus-visible:ring-offset-orange-1"
+              className="input-class font-light focus-visible:ring-offset-[#4CAF50]"
               placeholder="Provide text to generate audio"
               rows={5}
               value={imagePrompt}
@@ -134,7 +134,7 @@ setImagePrompt}:GenerateThumbnailProps) => {
           <div className="w-full max-w-[200px]">
             <Button
               type="submit"
-              className="text-16 bg-orange-1 py-4 font-bold text-white-1"
+              className="text-16 bg-[#4CAF50] py-4 font-bold text-white-1"
               onClick={handleImageGeneration}
             >
               {isImageLoading ? (
@@ -170,7 +170,7 @@ setImagePrompt}:GenerateThumbnailProps) => {
             </div>
           )}
           <div className="flex flex-col items-center gap-1">
-            <h2 className="text-12 font-bold text-orange-1">Click to uplaod</h2>
+            <h2 className="text-12 font-bold text-[#4CAF50]">Click to uplaod</h2>
             <p className="text-12 font-bold text-gray-1">
               SVG,JPG,PNG or GIF max(1080x1080px)
             </p>

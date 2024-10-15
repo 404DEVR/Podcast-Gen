@@ -26,10 +26,12 @@ buttonText}:EmptyStateProps) => {
           </p>
         )}
         {buttonLink && (
-          <Button className="bg-orange-1">
+          <Button className="bg-[#4CAF50]">
             <Link href={buttonLink} className="gap-1 flex">
               <Image src="/icons/discover.svg" alt="" width={20} height={20} />
-              <h1 className='text-16 font-extrabold text-white-1'>{buttonText}</h1>
+              <h1 className="text-16 font-extrabold text-white-1">
+                {buttonText}
+              </h1>
             </Link>
           </Button>
         )}

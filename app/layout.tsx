@@ -21,9 +21,9 @@ const manrope = Manrope({subsets:['latin']})
 export const metadata: Metadata = {
   title: "PodcastGen",
   description: "Generated Your Podacst using AI",
-  icons:{
-    icon:'/icons/logo.svg'
-  }
+  icons: {
+    icon: "/images/logo1.svg",
+  },
 };
 
 export default function RootLayout({

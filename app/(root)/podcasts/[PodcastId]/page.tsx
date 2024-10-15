@@ -29,7 +29,7 @@ const PodcastDetails = ({
   if(!SimilarPodcast || !podcast ) return <LoaderSpinner />
   return (
     <section className="flex-flex-col w-full">
-      <header className="mt-9 flex items-center justify-between">
+      <header className="mt-20 flex items-center justify-between">
         <h1 className="text-20 font-bold text-white-1">Currently Playing</h1>
         <figure className="flex gap-3">
           <Image

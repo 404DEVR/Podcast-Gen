@@ -163,12 +163,11 @@ const CreatePodcast=()=> {
             }
           );
           setVoices(response.data);
-          localStorage.setItem("voices", JSON.stringify(response.data)); // Store in localStorage
+          localStorage.setItem("voices", JSON.stringify(response.data)); 
         } catch (error) {
           console.error("Error fetching voices", error);
         }
       };
-
       fetchVoices();
     }
   }, []);
@@ -185,7 +184,7 @@ const CreatePodcast=()=> {
     }
   }, [voiceLanguage, voices.data]);
   return (
-    <section className="mt-10 flex flex-col">
+    <section className="mt-20 flex flex-col">
       <h1 className="text-20 font-bold text-white-1">Create Podcast</h1>
       <Form {...form}>
         <form
@@ -205,7 +204,7 @@ const CreatePodcast=()=> {
                     <Input
                       placeholder="Add Podcast title"
                       {...field}
-                      className="input-class focus-visible:ring-offset-orange-1"
+                      className="input-class focus-visible:ring-offset-[#4CAF50]"
                     />
                   </FormControl>
                   <FormMessage className="text-white-1 " />
@@ -218,21 +217,21 @@ const CreatePodcast=()=> {
               </Label>
               <Select onValueChange={(value) => setVoiceLanguage(value)}>
                 <SelectTrigger
-                  className={`text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1`}
+                  className={`text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-[#4CAF50]`}
                 >
                   <SelectValue
                     placeholder="Select Ai Language"
                     className="placeholder:text-gray-1"
                   />
                 </SelectTrigger>
-                <SelectContent className="text-16 border-none bg-black-1 font-bold text-white focus:ring-orange-1 text-white-1">
+                <SelectContent className="text-16 border-none bg-black-1 font-bold text-white focus:ring-[#4CAF50] text-white-1">
                   {Array.from(
                     new Set(voices.data.map((e) => e.language_name))
                   ).map((e, i) => (
                     <SelectItem
                       key={i}
                       value={e}
-                      className="capitalize focus:bg-orange-1"
+                      className="capitalize focus:bg-[#4CAF50]"
                     >
                       {e}
                     </SelectItem>
@@ -246,19 +245,19 @@ const CreatePodcast=()=> {
               </Label>
               <Select onValueChange={(value) => handlevoiceChange(value)}>
                 <SelectTrigger
-                  className={`text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1`}
+                  className={`text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-[#4CAF50]`}
                 >
                   <SelectValue
                     placeholder="Select Ai Voice"
                     className="placeholder:text-gray-1"
                   />
                 </SelectTrigger>
-                <SelectContent className="text-16 border-none bg-black-1 font-bold text-white focus:ring-orange-1 text-white-1">
+                <SelectContent className="text-16 border-none bg-black-1 font-bold text-white focus:ring-[#4CAF50] text-white-1">
                   {filteredVoices.map((e, i) => (
                     <SelectItem
                       key={i}
                       value={e.voice_name}
-                      className="capitalize focus:bg-orange-1"
+                      className="capitalize focus:bg-[#4CAF50]"
                     >
                       {e.voice_name}
                     </SelectItem>
@@ -268,7 +267,9 @@ const CreatePodcast=()=> {
                   <audio src={playingAudio} autoPlay className="hidden"></audio>
                 )}
               </Select>
-              <p className="text-white-1 text-sm mt-2">Please Select Language first to select the Voice</p>
+              <p className="text-white-1 text-sm mt-2">
+                Please Select Language first to select the Voice
+              </p>
             </div>
 
             <div className="flex flex-col gap-[2.5]">
@@ -277,19 +278,19 @@ const CreatePodcast=()=> {
               </Label>
               <Select onValueChange={(value) => setgenre(value)}>
                 <SelectTrigger
-                  className={`text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1`}
+                  className={`text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-[#4CAF50]`}
                 >
                   <SelectValue
                     placeholder="Select Genre"
                     className="placeholder:text-gray-1"
                   />
                 </SelectTrigger>
-                <SelectContent className="text-16 border-none bg-black-1 font-bold text-white focus:ring-orange-1 text-white-1">
+                <SelectContent className="text-16 border-none bg-black-1 font-bold text-white focus:ring-[#4CAF50] text-white-1">
                   {podcastGenres.map((e, i) => (
                     <SelectItem
                       key={i}
                       value={e}
-                      className="capitalize focus:bg-orange-1"
+                      className="capitalize focus:bg-[#4CAF50]"
                     >
                       {e}
                     </SelectItem>
@@ -309,7 +310,7 @@ const CreatePodcast=()=> {
                     <Textarea
                       placeholder="Write a short podcast description"
                       {...field}
-                      className="input-class focus-visible:ring-offset-orange-1"
+                      className="input-class focus-visible:ring-offset-[#4CAF50]"
                     />
                   </FormControl>
                   <FormMessage className="text-white-1 " />
@@ -339,7 +340,7 @@ const CreatePodcast=()=> {
             <div className="mt-10 w-full ">
               <Button
                 type="submit"
-                className="text-16 w-full bg-orange-1 py-4 font-extrabold text-white-1 transition-all duration-500 hover:bg-black-1"
+                className="text-16 w-full bg-[#4CAF50] py-4 font-extrabold text-white-1 transition-all duration-500 hover:bg-black-1"
               >
                 {isSubmitting ? (
                   <>

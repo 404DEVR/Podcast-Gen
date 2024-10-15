@@ -3,7 +3,7 @@
 import { SignedIn, UserButton, useUser } from "@clerk/nextjs";
 import Link from 'next/link';
 import Image from "next/image";
-import React from 'react'
+import React, { useState } from 'react'
 import Carousel from "./Carousel";
 import Header from "./Header";
 import { useQuery } from "convex/react";
@@ -11,65 +11,76 @@ import { api } from "@/convex/_generated/api";
 import { useRouter } from "next/navigation";
 import LoaderSpinner from "./LoaderSpinner";
 import { useAudio } from "@/provider/AudioProvider";
+import { Button } from "./ui/button";
 
 const RightSidebar = () => {
   const { user } = useUser()
   const topPodcasters = useQuery(api.users.getTopUserByPodcastCount);
   const router=useRouter()
+  const [isPressed,setIsPressed]=useState(false);
   const {audio} = useAudio()
   if (!topPodcasters) return <LoaderSpinner />;
+
   return (
-    <section className={`right_sidebar text-white-1 ${audio?.audioUrl ? "h-[calc(100vh-140px)]" : "h-[calc(100vh-5px)]"}`}>
+    <div className="fixed flex justify-end right-10 top-5 gap-4 max-md:hidden ">
       <SignedIn>
-        <Link href={`/profile/${user?.id}`} className="flex gap-3 pb-12">
+        <Button onClick={() => setIsPressed(!isPressed)} className="">
+          More
+        </Button>
+        <Button className="right-5 top-5 rounded-lg gap-2">
           <UserButton />
-          <div className="flex w-full items-center justify-between">
+          <div className="flex w-full items-center justify-between gap-6">
             <h1 className="text-16 truncate font-semibold text-white-1">
               {user?.firstName}
             </h1>
-            <Image
-              src="/icons/right-arrow.svg"
-              alt="arrow"
-              width={24}
-              height={24}
-            />
           </div>
-        </Link>
-        <section>
-          <Header headerTitle=" Fans Like You" />
-          <Carousel fansLikeDetail={topPodcasters!} />
-        </section>
-        <section className="flex flex-col gap-8 pt-12">
-          <Header headerTitle="Top Podcasters" headerClassname=""></Header>
-          <div className="flex flex-col gap-6 mt-4">
-            {topPodcasters?.slice(0, 4).map((item) => (
-              <div
-                key={item._id}
-                className="flex cursor-pointer justify-between"
-                onClick={() => router.push(`/profile/${item.clerkId}`)}
-              >
-                <figure className="flex items-center gap-2">
-                  <Image
-                    src={item.imageUrl}
-                    alt={item.name}
-                    className="aspect-square rounded-lg"
-                    width={44}
-                    height={44}
-                  />
-                  <h2 className="text-14 font-semibold">{item.name}</h2>
-                </figure>
-                <div className="flex items-center">
-                  <p className="text-12 font-normal">
-                    {item.totalPodcasts}{" "}
-                    {item.totalPodcasts === 1 ? "podcast" : "podcasts"}
-                  </p>
+        </Button>
+        {isPressed && (
+          <section
+            className={`right_sidebar text-white-1 h-[calc(100vh-100px)] top-0 right-48`}
+          >
+            <div>
+              <section>
+                <Header headerTitle=" Fans Like You" />
+                <Carousel fansLikeDetail={topPodcasters!} />
+              </section>
+              <section className="flex flex-col gap-8 pt-6">
+                <Header
+                  headerTitle="Top Podcasters"
+                  headerClassname=""
+                ></Header>
+                <div className="flex flex-col gap-6 mb-4">
+                  {topPodcasters?.slice(0, 4).map((item) => (
+                    <div
+                      key={item._id}
+                      className="flex cursor-pointer justify-between"
+                      onClick={() => router.push(`/profile/${item.clerkId}`)}
+                    >
+                      <figure className="flex items-center gap-2">
+                        <Image
+                          src={item.imageUrl}
+                          alt={item.name}
+                          className="aspect-square rounded-lg"
+                          width={44}
+                          height={44}
+                        />
+                        <h2 className="text-14 font-semibold">{item.name}</h2>
+                      </figure>
+                      <div className="flex items-center">
+                        <p className="text-12 font-normal">
+                          {item.totalPodcasts}{" "}
+                          {item.totalPodcasts === 1 ? "podcast" : "podcasts"}
+                        </p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              </div>
-            ))}
-          </div>
-        </section>
+              </section>
+            </div>
+          </section>
+        )}
       </SignedIn>
-    </section>
+    </div>
   );
 }
 

@@ -35,7 +35,7 @@ const MobileNav = () => {
             className="flex cursor-pointer items-center gap-1 pb-10"
           >
             <Image
-              src="/icons/logo.svg"
+              src="/images/logo1.svg"
               alt="/icons/logo.svg"
               width={23}
               height={27}
@@ -55,7 +55,7 @@ const MobileNav = () => {
                       <Link
                         key={i}
                         href={e.route}
-                        className={`flex gap-3 items-venter py-4 max-lg:px-4 justify-start ${isActive && "bg-nav-focus border-r-4 border-orange-1"}`}
+                        className={`flex gap-3 items-venter py-4 max-lg:px-4 justify-start ${isActive && "bg-nav-focus border-r-4 border-[#BDE8CA]"}`}
                       >
                         <Image src={e.imgURL} alt="" width={24} height={24} />
                         <p>{e.label}</p>
