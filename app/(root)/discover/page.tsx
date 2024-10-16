@@ -12,9 +12,12 @@ const Discover = ({searchParams:{search}}:{searchParams:{search:string}}) => {
   const podcastData=useQuery(api.podcasts.getPodcastBySearch,{search:search || ''})
   return (
     <div className="flex flex-col gap-9 pt-8 mt-12">
-      <SearchBar/>
+      <SearchBar />
       <div className="flex flex-col gap-9">
-        <h1 className="text-20 font-bold text-white-1">{!search ?'Discover Trending Podcasts':'Search Results for: '} {search && <span className="text-white-2">{search}</span>}</h1>
+        <h1 className="text-20 font-bold text-white-1">
+          {!search ? "Discover Trending Podcasts" : "Search Results for: "}{" "}
+          {search && <span className="text-white-2">{search}</span>}
+        </h1>
         {podcastData ? (
           <div className="podcast_grid">
             {podcastData?.map((e) => (

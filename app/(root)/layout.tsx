@@ -14,8 +14,6 @@ export default function RootLayout({
     <div className="relative flex flex-col">
       <main className="relative flex bg-black -3">
         <Leftsidebar />
-        <RightSidebar />
-
         <section className="flex min-h-screen flex-1 flex-col px-4 sm:px-14 bg-black-3 md:bg-gradient-to-b from-[#4CAF50] from-80px via-black-1 via-100px to-transparent to-200px">
           <div className="mx-auto flex w-full max-w-5xl flex-col max-sm:px-4 ">
             <div className="flex h-16 items-center justify-between md:hidden">
@@ -33,8 +31,9 @@ export default function RootLayout({
 
               <MobileNav />
             </div>
-            <div className="flex flex-col md:pb-14 ">
+            <div className="flex flex-col md:pb-14 my-2">
               <Toaster />
+                <RightSidebar />
               {children}
             </div>
           </div>

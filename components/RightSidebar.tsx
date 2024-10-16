@@ -38,7 +38,7 @@ const RightSidebar = () => {
       </SignedIn>
       {isPressed && (
         <section
-          className={`right_sidebar text-white-1 h-[calc(100vh-100px)] top-0 right-48`}
+          className={`right_sidebar text-white-1 h-[calc(100vh-100px)] top-0 right-80`}
         >
           <div>
             <section>
