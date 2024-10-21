@@ -184,7 +184,7 @@ const CreatePodcast=()=> {
     }
   }, [voiceLanguage, voices.data]);
   return (
-    <section className="mt-20 flex flex-col">
+    <section className="mt-8 flex flex-col">
       <h1 className="text-20 font-bold text-white-1">Create Podcast</h1>
       <Form {...form}>
         <form

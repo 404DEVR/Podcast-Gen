@@ -33,8 +33,10 @@ export default function RootLayout({
             </div>
             <div className="flex flex-col md:pb-14 my-2">
               <Toaster />
+              <div className="z-10">
                 <RightSidebar />
-              {children}
+              </div>
+              <div className="z-0">{children}</div>
             </div>
           </div>
         </section>

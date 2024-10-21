@@ -11,7 +11,7 @@ import React from "react";
 const Discover = ({searchParams:{search}}:{searchParams:{search:string}}) => {
   const podcastData=useQuery(api.podcasts.getPodcastBySearch,{search:search || ''})
   return (
-    <div className="flex flex-col gap-9 pt-8 mt-12">
+    <div className="flex flex-col gap-9 pt-8 mt-8">
       <SearchBar />
       <div className="flex flex-col gap-9">
         <h1 className="text-20 font-bold text-white-1">

@@ -29,7 +29,7 @@ const PodcastDetails = ({
   if(!SimilarPodcast || !podcast ) return <LoaderSpinner />
   return (
     <section className="flex-flex-col w-full">
-      <header className="mt-20 flex items-center justify-between">
+      <header className="mt-8 flex items-center justify-between">
         <h1 className="text-20 font-bold text-white-1">Currently Playing</h1>
         <figure className="flex gap-3">
           <Image
@@ -41,7 +41,7 @@ const PodcastDetails = ({
           <h2 className="text-16 font-bold text-white-1">{podcast?.views}</h2>
         </figure>
       </header>
-      <PodcastDetailPlayer 
+      <PodcastDetailPlayer
         isOwner={isOwner}
         podcastId={podcast._id}
         {...podcast}

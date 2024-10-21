@@ -11,7 +11,7 @@ import { api } from "@/convex/_generated/api";
 const Home = () => {
  const trendingPodcasts = useQuery(api.podcasts.getTrendingPodcasts);
   return (
-    <div className="mt-20 flex flex-col gap-9 md:overflow-hidden w-full">
+    <div className="mt-8 flex flex-col gap-9 md:overflow-hidden w-full">
       <section className="flex flex-col gap-5">
         <h1 className="text-20 font-bold text-white-1">Trending Podcast</h1>
         <div className="podcast_grid">

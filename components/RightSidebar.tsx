@@ -20,8 +20,8 @@ const RightSidebar = () => {
   if (!topPodcasters) return <LoaderSpinner />;
 
   return (
-    <div className="fixed flex justify-end right-10 top-5 gap-4 max-md:hidden ">
-      <Button onClick={() => setIsPressed(!isPressed)} className="">
+    <div className="relative flex justify-end top-5 gap-4 max-md:hidden ">
+      <Button onClick={() => setIsPressed(!isPressed)} className="z-10">
         Find Podcast creaters
       </Button>
       <SignedIn>
