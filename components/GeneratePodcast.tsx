@@ -1,4 +1,4 @@
-import { GeneratePodcastProps} from "@/types";
+import { GeneratePodcastProps } from "@/types";
 import React, { useState } from "react";
 import { Label } from "./ui/label";
 import { Textarea } from "./ui/textarea";
@@ -21,39 +21,88 @@ const useGeneratePodcast = ({
   voiceObj
 }: GeneratePodcastProps) => {
 
-   const fetchAudio = async (text: string) => {
-     const options = {
-       method: "POST",
-       url: "https://realistic-text-to-speech.p.rapidapi.com/v3/generate_voice_over_v2",
-       headers: {
-         "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_KEY,
-         "x-rapidapi-host": "realistic-text-to-speech.p.rapidapi.com",
-         "Content-Type": "application/json",
-       },
-       data: {
-         voice_obj: voiceObj,
-         json_data: [
-           {
-             block_index: 0,
-             text: text,
-           },
-         ],
-       },
-     };
-     try {
-        const response = await axios.request(options);
-        const audioUrl = response.data[0].link;
-        const audioresponse = await fetch(audioUrl);
-        const imageBlob = await audioresponse.blob();
-        return imageBlob;
-     } catch {
-       toast({
-         title:
-           "Your submission exceeds the maximum allowed word count of 300 words. Please revise your content to fit within the specified limit. Thank you for your understanding",
-       });
-       throw new Error("Failed to fetch speech data");
-     }
-   };
+  const fetchAudio = async (text: string) => {
+    const options = {
+      method: "POST",
+      url: "https://realistic-text-to-speech-tts-api.p.rapidapi.com/tts",
+      headers: {
+        "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_TEXT_KEY || "",
+        "x-rapidapi-host": "realistic-text-to-speech-tts-api.p.rapidapi.com",
+        "Content-Type": "application/json",
+      },
+      data: {
+        text: text,
+        voice: voiceObj.ShortName,
+        rate: '+0%',
+        pitch: '+0Hz',
+        volume: '+0%'
+      },
+    };
+    try {
+      const response = await axios.request(options);
+
+      // Handle different response formats
+      let audioUrl: string;
+      if (typeof response.data === 'string') {
+        audioUrl = response.data;
+      } else if (response.data && response.data.url) {
+        audioUrl = response.data.url;
+      } else if (response.data && response.data.audio_url) {
+        audioUrl = response.data.audio_url;
+      } else {
+        throw new Error("Invalid response format from TTS API");
+      }
+
+      // If the URL is relative, make it absolute
+      if (audioUrl.startsWith('/')) {
+        audioUrl = `https://realistic-text-to-speech-tts-api.p.rapidapi.com${audioUrl}`;
+      }
+
+      const audioresponse = await fetch(audioUrl, {
+        headers: {
+          "x-rapidapi-key": process.env.NEXT_PUBLIC_RAPIDAPI_TEXT_KEY || "",
+          "x-rapidapi-host": "realistic-text-to-speech-tts-api.p.rapidapi.com",
+        },
+      });
+      if (!audioresponse.ok) {
+        throw new Error(`Failed to fetch audio: ${audioresponse.status}`);
+      }
+      const audioBlob = await audioresponse.blob();
+      return audioBlob;
+    } catch (error: unknown) {
+      // Handle specific API errors with user-friendly messages
+      const axiosError = error as { response?: { status: number; data?: { detail?: string } } };
+      if (axiosError.response?.status === 413) {
+        const errorDetail = axiosError.response?.data?.detail || "Text is too long for your current plan.";
+        toast({
+          title: "Text Too Long",
+          description: errorDetail.includes("1000 characters")
+            ? "Your text exceeds the 1000 character limit for the BASIC plan. Please shorten your transcript and try again."
+            : errorDetail,
+          variant: "destructive",
+        });
+      } else if (axiosError.response?.status === 401) {
+        toast({
+          title: "Authentication Error",
+          description: "There's an issue with the API authentication. Please try again later.",
+          variant: "destructive",
+        });
+      } else if (axiosError.response?.status === 429) {
+        toast({
+          title: "Rate Limit Exceeded",
+          description: "You've made too many requests. Please wait a moment and try again.",
+          variant: "destructive",
+        });
+      } else {
+        toast({
+          title: "Audio Generation Failed",
+          description: "Unable to generate audio. Please check your text and try again.",
+          variant: "destructive",
+        });
+      }
+      throw error; // Re-throw to be caught by the outer try-catch
+    }
+  };
   const [isGenerating, setIsGenerating] = useState(false);
   const { toast } = useToast();
   const generateUploadUrl = useMutation(api.files.generateUploadUrl);
@@ -78,12 +127,15 @@ const useGeneratePodcast = ({
           variant: "destructive",
         });
         setIsGenerating(false);
+        return; // Add return to prevent further execution
       } else {
         const audioBlob = await fetchAudio(voicePrompt);
         const fileName = `podcast-${uuidv4()}.mp3`;
         const file = new File([audioBlob!], fileName, { type: "audio/mpeg" });
         const uploaded = await startUpload([file]);
-        const storageId = (uploaded[0].response as Id<"_storage">).storageId;
+
+        // Extract storageId properly from the upload response
+        const storageId = (uploaded[0].response as { storageId?: string }).storageId || uploaded[0].response as Id<"_storage">;
         setAudioStorageId(storageId);
         const audioUrl = await getAudioUrl({ storageId });
         setAudio(audioUrl!);
@@ -92,11 +144,16 @@ const useGeneratePodcast = ({
           title: "Podcast generated successfully",
         });
       }
-    } catch{
-      toast({
-        title: "Error creating a podcast",
-        variant: "destructive",
-      });
+    } catch (error: unknown) {
+      // Only show generic error if it's not a TTS API error (which already shows specific error)
+      const axiosError = error as { response?: { status: number } };
+      if (!axiosError.response || !axiosError.response.status) {
+        toast({
+          title: "Error creating a podcast",
+          description: "An unexpected error occurred. Please try again.",
+          variant: "destructive",
+        });
+      }
       setIsGenerating(false);
     }
   };

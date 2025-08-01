@@ -47,17 +47,13 @@ export interface PodcastProps {
 }
 
 export interface Voice {
-  gender: string; 
-  id: number; 
-  language_code: string; 
-  language_name: string; 
-  rank: number; 
-  sample_audio_url: string; 
-  sample_text: string; 
-  status: number;
-  type: string; 
-  voice_id: string; 
-  voice_name: string; 
+  Name: string;
+  ShortName: string;
+  Gender: string;
+  Locale: string;
+  SuggestedCodec: string;
+  FriendlyName: string;
+  Status: string;
 }
 
 export interface VoicesResponse {
